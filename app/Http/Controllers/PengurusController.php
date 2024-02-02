@@ -97,7 +97,7 @@ class PengurusController extends Controller
             $img_resize->save($destinationPath . $fileName);
             $user->avatar = $fileName;
         }
-        $user->status = 1;
+        $user->status = $request->status;
         $user->nohp = $request->nohp;
         $user->alamat = $request->alamat;
         $user->save();

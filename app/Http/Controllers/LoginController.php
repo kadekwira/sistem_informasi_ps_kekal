@@ -82,11 +82,20 @@ class LoginController extends Controller
                     'message' => 'Anda tidak memiliki hak akses!'
                 ]);
             } else {
-                return response()->json([
-                    'success' => true,
-                    'level' => auth()->user()->level,
-                    'message' => 'Selamat Datang ' . Str::ucfirst(auth()->user()->level) . '!'
-                ]);
+
+                if(auth()->user()->status == 0){
+                    $this->logout();
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Anda tidak memiliki hak akses!'
+                    ]);
+                }else{
+                    return response()->json([
+                        'success' => true,
+                        'level' => auth()->user()->level,
+                        'message' => 'Selamat Datang ' . Str::ucfirst(auth()->user()->level) . '!'
+                    ]);
+                }
             }
         } else {
             return response()->json([
